@@ -1,0 +1,61 @@
+Print
+	flameshot gui
+
+XF86AudioMute
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+{_,shift +}XF86AudioLowerVolume
+	pactl set-sink-volume @DEFAULT_SINK@ -{5,1}%
+
+{_,shift +}XF86AudioRaiseVolume
+	pactl set-sink-volume @DEFAULT_SINK@ +{5,1}%
+
+{_,shift +}XF86MonBrightnessUp
+	brightnessctl set +{5,1}% 
+
+{_,shift +}XF86MonBrightnessDown
+	brightnessctl set {5,1}%-
+
+super + {_,shift + }Return
+	{kitty, bspc node -s biggest.local}
+
+super + shift + {q,r}
+	bspc {quit,wm -r}
+
+super + {_,P + }q
+	bspc node -{c,k}
+
+super + {h,j,k,l}
+	bspc node -f {west,south,north,east}
+
+super + alt + {Left,Down,Up,Right}
+	bspc node -p {west,south,north,east}
+
+super + alt + space
+	bspc node -p cancel
+
+super + d
+	rofi -show drun
+
+super + {1-9,0}
+	bspc desktop -f '^{1-9,10}'
+
+super + {_, shift + }Tab
+	bspc desktop -f {next, prev}
+
+super + shift + {1-9,0}
+	id=$(bspc query -N -n); bspc node -d '^{1-9,10}'; bspc desktop -f '^{1-9,10}';\
+	bspc node -f ${id}
+
+super + {_, shift +} m
+	bspc {monitor -f,node -m} next {_,; bspc monitor -f next}
+
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+super + ctrl + {Left,Down,Up,Right}
+	{bspc node -z left -20 0; bspc node -z right -20 0, \
+	bspc node -z bottom 0 20; bspc node -z top 0 20, \
+	bspc node -z bottom 0 -20; bspc node -z top 0 -20, \ 
+	bspc node -z left 20 0; bspc node -z right 20 0}
+

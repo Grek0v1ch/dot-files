@@ -1,0 +1,28 @@
+#! /bin/bash
+
+# Некоторые настройки системы при инициализации, пока не знаю куда поместить
+# Переключение раскладки на Caps Lock
+setxkbmap -layout us,ru -option grp:caps_toggle
+# Натуральный скролл на тачпаде (на thinkpad у него id = 11)
+xinput set-prop 11 304 1
+
+# Автостарты
+~/.config/bspwm/scripts/setup-monitors.sh &  # скрипт настройки воркспейсов
+sxhkd &
+~/.config/bspwm/scripts/launch-polybar.sh &
+nitrogen --restore &
+picom &
+
+# Рамки и гапсы (расстояние между окнами)
+bspc config top_padding 0
+bspc config border_width 3
+bspc config window_gap 10
+
+bsp config presel_feedback_color "#ff8f40"
+
+
+# Клавиша модификатор
+bspc config pointer_modifier super
+
+bspc rule -a TelegramDesktop state=floating rectangle=700x940+1180+70
+
